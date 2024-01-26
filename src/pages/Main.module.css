@@ -1,0 +1,36 @@
+.main {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.main h1 {
+  text-align: center;
+  margin: 0;
+  color: #ffff;
+  font-size: 3.5rem;
+}
+
+.main {
+  color: #ffff;
+}
+
+@media (min-aspect-ratio: 16/9) {
+  .main {
+    background-image: url('../assets/main_fullHD.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    /* filter: blur(8px); */
+  }
+}
+
+@media (max-aspect-ratio: 16/9) {
+  .main {
+    background-image: url('../assets/main.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+}

@@ -2,11 +2,26 @@
   height: 100vh;
   width: 100vw;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   margin: auto;
+  flex-direction: column;
+  position: relative;
 
   background: url('../assets/coll.png');
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.searchInput,
+.addButton {
+  flex: 1 0 10%;
+}
+
+.containerGrid {
+  color: #ffff;
+  flex: 0 0 80%;
+
+  text-transform: uppercase;
+  font-size: 50px;
 }

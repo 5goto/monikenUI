@@ -1,5 +1,10 @@
+@font-face {
+  font-family: 'Walter Turncoat';
+  src: url('./fonts/WalterTurncoat-Regular.ttf') format('truetype');
+  font-style: normal;
+}
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -23,6 +28,7 @@ a:hover {
 }
 
 body {
+  font-family: 'Walter Turncoat', sans-serif !important;
   margin: 0;
   display: flex;
   place-items: center;

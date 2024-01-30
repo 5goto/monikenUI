@@ -1,5 +1,6 @@
 import { Flex, GridItem, Text } from '@chakra-ui/react';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export interface CollectionItemProps {
   id: string;
@@ -8,8 +9,14 @@ export interface CollectionItemProps {
 }
 
 export const CollectionItem: React.FC<CollectionItemProps> = ({ name }) => {
+  const navigate = useNavigate();
+  const onClickHandler = () => {
+    navigate(`/collections/${name}/routes`);
+  };
+
   return (
     <GridItem
+      onClick={onClickHandler}
       cursor={'pointer'}
       w="300px"
       h="300px"

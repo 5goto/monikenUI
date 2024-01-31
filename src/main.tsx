@@ -7,6 +7,7 @@ import { Main } from './pages/Main.tsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { RoutesPage } from './pages/RoutesPage.tsx';
+import { NewRoute } from './pages/NewRoute.tsx';
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route
             path="collections/:collectionName/routes"
             element={<RoutesPage />}></Route>
+          <Route
+            path="collections/:collectionName/routes/new"
+            element={<NewRoute />}
+          />
         </Routes>
       </BrowserRouter>
     </ChakraProvider>

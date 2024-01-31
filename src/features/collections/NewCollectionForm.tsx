@@ -1,4 +1,4 @@
-import { Button, Flex, Input, InputGroup } from '@chakra-ui/react';
+import { Button, Flex, Input, InputGroup, Textarea } from '@chakra-ui/react';
 import { useMutation } from '@tanstack/react-query';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { CollectionInterface, createCollection } from '../../api/collection';
@@ -29,7 +29,12 @@ export const NewCollectionForm = () => {
         </InputGroup>
 
         <InputGroup paddingBottom={'10px'}>
-          <Input placeholder="Description" {...register('description')} />
+          <Textarea
+            placeholder="Description"
+            {...register('description')}
+            size="sm"
+            resize="none"
+          />
         </InputGroup>
 
         <Button colorScheme="teal" size="md" type="submit">

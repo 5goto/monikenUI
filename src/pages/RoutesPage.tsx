@@ -3,9 +3,16 @@ import { useState } from 'react';
 import { Search } from '../UI/Search';
 import styles from './RoutePage.module.css';
 import { AddButton } from '../UI/AddButton';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export const RoutesPage = () => {
   const [searchValue, setSearchValue] = useState('');
+  const navigate = useNavigate();
+  const { collectionName } = useParams();
+
+  const onClickAddButtonHandler = () => {
+    navigate(`/collections/${collectionName}/routes/new`);
+  };
 
   const mock = [
     {
@@ -72,7 +79,7 @@ export const RoutesPage = () => {
         className={styles.addButton}
         justifyContent={'center'}
         alignItems={'center'}>
-        <AddButton onClickHandler={() => {}}></AddButton>
+        <AddButton onClickHandler={onClickAddButtonHandler}></AddButton>
       </Flex>
     </div>
   );

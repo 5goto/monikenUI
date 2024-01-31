@@ -1,18 +1,14 @@
-.searchInput,
-.addButton {
-  flex: 1 0 10%;
-}
-
-.routes {
-  height: 100vh;
+.newRoutePage {
+  min-height: 100vh;
   width: 100vw;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   margin: auto;
   flex-direction: column;
   position: relative;
 
+  background: rgb(8, 29, 20);
   background: rgb(38, 47, 40);
   background: radial-gradient(
     circle,

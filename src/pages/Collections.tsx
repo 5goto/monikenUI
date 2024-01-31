@@ -16,7 +16,6 @@ import { NewCollectionForm } from '../features/collections/NewCollectionForm';
 import { Logo } from '../UI/Logo';
 import { AddButton } from '../UI/AddButton';
 import { Search } from '../UI/Search';
-
 export const Collections = () => {
   const [searchValue, setSearchValue] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();

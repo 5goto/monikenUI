@@ -21,7 +21,7 @@
 
 @media (min-aspect-ratio: 16/9) {
   .main {
-    background-image: url('../assets/main_fullHD.png');
+    background-image: url('../../assets/main_fullHD.png');
     background-size: cover;
     background-repeat: no-repeat;
     animation: fade 2s;
@@ -31,7 +31,7 @@
 
 @media (max-aspect-ratio: 16/9) {
   .main {
-    background-image: url('../assets/main.png');
+    background-image: url('../../assets/main.png');
     background-size: cover;
     background-repeat: no-repeat;
     animation: fade 2s;

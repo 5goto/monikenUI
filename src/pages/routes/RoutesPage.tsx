@@ -1,8 +1,8 @@
 import { Flex, Grid, Text } from '@chakra-ui/react';
 import { useState } from 'react';
-import { Search } from '../UI/Search';
+import { Search } from '../../UI/Search';
 import styles from './RoutePage.module.css';
-import { AddButton } from '../UI/AddButton';
+import { AddButton } from '../../UI/AddButton';
 import { useNavigate, useParams } from 'react-router-dom';
 
 export const RoutesPage = () => {

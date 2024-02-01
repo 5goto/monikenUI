@@ -1,4 +1,4 @@
-import { NewRouteForm } from '../features/routes/NewRouteForm';
+import { NewRouteForm } from '../../features/routes/NewRouteForm';
 import styles from './NewRoute.module.css';
 
 export const NewRoute = () => {

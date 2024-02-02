@@ -4,6 +4,8 @@ import { Search } from '../../UI/Search';
 import styles from './RoutePage.module.css';
 import { AddButton } from '../../UI/AddButton';
 import { useNavigate, useParams } from 'react-router-dom';
+import { RouteItem } from '../../features/routes/RouteItem';
+import { Logo } from '../../UI/Logo';
 
 export const RoutesPage = () => {
   const [searchValue, setSearchValue] = useState('');
@@ -27,6 +29,36 @@ export const RoutesPage = () => {
     },
     {
       id: '3',
+      name: 'RouteName3',
+      endpoint: '/cars/4',
+    },
+    {
+      id: '4',
+      name: 'RouteName1',
+      endpoint: '/home',
+    },
+    {
+      id: '5',
+      name: 'RouteName2',
+      endpoint: '/books',
+    },
+    {
+      id: '6',
+      name: 'RouteName3',
+      endpoint: '/cars/4',
+    },
+    {
+      id: '7',
+      name: 'RouteName1',
+      endpoint: '/home',
+    },
+    {
+      id: '8',
+      name: 'RouteName2',
+      endpoint: '/books',
+    },
+    {
+      id: '9',
       name: 'RouteName3',
       endpoint: '/cars/4',
     },
@@ -61,16 +93,22 @@ export const RoutesPage = () => {
             scrollbarWidth: 'none',
           }}>
           {searched.map((item) => (
-            <div key={item.id}>
-              {item.id} | {item.name} | {item.endpoint}
-            </div>
+            <RouteItem
+              key={item.id}
+              name={item.name}
+              endpoint={item.endpoint}></RouteItem>
           ))}
         </Grid>
       ) : (
         <Flex
+          flex={'0 0 80%'}
+          color={'#ffff'}
+          textTransform={'uppercase'}
+          fontSize={'50px'}
           className={styles.containerGrid}
           justifyContent={'center'}
-          alignItems={'center'}>
+          alignItems={'center'}
+          flexDirection={'column'}>
           <Text>no matches</Text>
         </Flex>
       )}
@@ -81,6 +119,7 @@ export const RoutesPage = () => {
         alignItems={'center'}>
         <AddButton onClickHandler={onClickAddButtonHandler}></AddButton>
       </Flex>
+      <Logo str={'Moniken UI'}></Logo>
     </div>
   );
 };

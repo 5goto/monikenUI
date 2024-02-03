@@ -2,6 +2,8 @@ import { Button, Flex, GridItem, Text, useDisclosure } from '@chakra-ui/react';
 import React, { RefObject } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Alert } from '../../UI/Alert';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { collectionApi } from '../../api/collection';
 
 export interface CollectionItemProps {
   id: string;
@@ -9,7 +11,7 @@ export interface CollectionItemProps {
   description: string;
 }
 
-export const CollectionItem: React.FC<CollectionItemProps> = ({ name }) => {
+export const CollectionItem: React.FC<CollectionItemProps> = ({ id, name }) => {
   const navigate = useNavigate();
   const onClickHandler = () => {
     navigate(`/collections/${name}/routes`);
@@ -20,8 +22,23 @@ export const CollectionItem: React.FC<CollectionItemProps> = ({ name }) => {
     event.stopPropagation();
   };
 
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: collectionApi.delete,
+    onSuccess: () => {
+      console.log('Deleted!');
+      queryClient.invalidateQueries({
+        queryKey: ['collections'],
+      });
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
   const onConfirmActionHandler = () => {
-    console.log(name);
+    mutation.mutate(id);
     onClose();
   };
 

@@ -3,6 +3,7 @@ import { Main } from './main/Main';
 import { Collections } from './collections/Collections';
 import { RoutesPage } from './routes/RoutesPage';
 import { NewRoute } from './routes/NewRoute';
+import { RouteDetail } from './routes/RouteDetail';
 
 export const Routing = () => {
   return (
@@ -15,6 +16,10 @@ export const Routing = () => {
       <Route
         path="collections/:collectionName/routes/new"
         element={<NewRoute />}
+      />
+      <Route
+        path="collections/:collectionName/routes/:id"
+        element={<RouteDetail />}
       />
     </Routes>
   );

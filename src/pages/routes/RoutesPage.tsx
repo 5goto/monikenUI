@@ -95,6 +95,7 @@ export const RoutesPage = () => {
           {searched.map((item) => (
             <RouteItem
               key={item.id}
+              id={item.id}
               name={item.name}
               endpoint={item.endpoint}></RouteItem>
           ))}

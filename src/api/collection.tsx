@@ -2,7 +2,7 @@ import axios from 'axios';
 import { axiosInstance } from './requestConfig';
 
 export interface CollectionInterface {
-  id?: string;
+  id: string;
   name: string;
   description: string;
 }
@@ -12,7 +12,7 @@ const api = axiosInstance();
 class CollectionAxiosRequest {
   async getAll() {
     try {
-      const { data } = await api.get<CollectionInterface>(`/collections`);
+      const { data } = await api.get<CollectionInterface[]>(`/collections`);
       return data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -42,4 +42,4 @@ class CollectionAxiosRequest {
   }
 }
 
-export const createCollection = new CollectionAxiosRequest();
+export const collectionApi = new CollectionAxiosRequest();

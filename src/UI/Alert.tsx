@@ -11,7 +11,7 @@ import {
 import React, { RefObject } from 'react';
 
 interface AlertProps {
-  cancelRef: RefObject<undefined>;
+  cancelRef: RefObject<HTMLElement>;
   isOpen: boolean;
   onClose: () => void;
   actionHandler: () => void;
@@ -36,7 +36,9 @@ export const Alert: React.FC<AlertProps> = ({
       isCentered>
       <AlertDialogOverlay />
 
-      <AlertDialogContent>
+      <AlertDialogContent
+        backgroundColor={'rgba(8, 29, 20, .5)'}
+        color={'#ffff'}>
         <AlertDialogHeader>{question}</AlertDialogHeader>
         <AlertDialogCloseButton />
         <AlertDialogBody>{message}</AlertDialogBody>

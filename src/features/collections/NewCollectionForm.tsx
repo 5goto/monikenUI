@@ -1,13 +1,18 @@
 import { Button, Flex, Input, InputGroup, Textarea } from '@chakra-ui/react';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { CollectionInterface, createCollection } from '../../api/collection';
+import { CollectionInterface, collectionApi } from '../../api/collection';
 
 export const NewCollectionForm = () => {
+  const queryClient = useQueryClient();
+
   const mutation = useMutation({
-    mutationFn: createCollection.create,
+    mutationFn: collectionApi.create,
     onSuccess: () => {
       console.log('Request done!');
+      queryClient.invalidateQueries({
+        queryKey: ['collections'],
+      });
     },
     onError: (error) => {
       console.log(error);

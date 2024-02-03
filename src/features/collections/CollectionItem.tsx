@@ -1,5 +1,5 @@
 import { Button, Flex, GridItem, Text, useDisclosure } from '@chakra-ui/react';
-import React from 'react';
+import React, { RefObject } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Alert } from '../../UI/Alert';
 
@@ -22,6 +22,7 @@ export const CollectionItem: React.FC<CollectionItemProps> = ({ name }) => {
 
   const onConfirmActionHandler = () => {
     console.log(name);
+    onClose();
   };
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -60,7 +61,7 @@ export const CollectionItem: React.FC<CollectionItemProps> = ({ name }) => {
         </Flex>
       </GridItem>
       <Alert
-        cancelRef={cancelRef}
+        cancelRef={cancelRef as unknown as RefObject<HTMLElement>}
         isOpen={isOpen}
         onClose={onClose}
         actionHandler={onConfirmActionHandler}

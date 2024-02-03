@@ -16,56 +16,18 @@ import { NewCollectionForm } from '../../features/collections/NewCollectionForm'
 import { Logo } from '../../UI/Logo';
 import { AddButton } from '../../UI/AddButton';
 import { Search } from '../../UI/Search';
+import { useQuery } from '@tanstack/react-query';
+import { collectionApi } from '../../api/collection';
 export const Collections = () => {
   const [searchValue, setSearchValue] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const mock = [
-    {
-      id: '1',
-      name: 'test1',
-      description: 'hhgurg gu hurh gu iu jh bu3h9 8hgr',
-    },
-    {
-      id: '2',
-      name: 'test2',
-      description: 'hhgurg gu hurh gu iu jh bu3h9 8hgr',
-    },
-    {
-      id: '3',
-      name: 'test3',
-      description: 'hhgurg gu hurh gu iu jh bu3h9 8hgr',
-    },
-    {
-      id: '4',
-      name: 'test4',
-      description: 'hhgurg gu hurh gu iu jh bu3h9 8hgr',
-    },
-    {
-      id: '5',
-      name: 'test5',
-      description:
-        'hhgurg gu hurh gu iu jh bu3h9 8hgr hhgurg gu hurh gu iu jh bu3h9 8hgr',
-    },
-    {
-      id: '6',
-      name: 'test6',
-      description: 'hhgurg gu hurh gu iu jh bu3h9 8hgr',
-    },
-    {
-      id: '7',
-      name: 'test7',
-      description:
-        'hhgurg gu hurh gu iu jh bu3h9 8hgr hhgurg gu hurh gu iu jh bu3h9 8hgr hhgurg gu hurh gu iu jh bu3h9 8hgr',
-    },
-    {
-      id: '8',
-      name: 'test8',
-      description: 'hhgurg gu hurh gu iu jh bu3h9 8hgr',
-    },
-  ];
+  const { isPending, error, data } = useQuery({
+    queryKey: ['collections'],
+    queryFn: collectionApi.getAll,
+  });
 
-  const searched = mock.filter((item) => item.name.includes(searchValue));
+  const searched = data?.filter((item) => item.name.includes(searchValue));
 
   return (
     <div className={styles.collections}>
@@ -77,7 +39,23 @@ export const Collections = () => {
           value={searchValue}
           onChangeHandler={(e) => setSearchValue(e.target.value)}></Search>
       </Flex>
-      {searched.length > 0 ? (
+      {isPending && (
+        <Flex
+          className={styles.containerGrid}
+          justifyContent={'center'}
+          alignItems={'center'}>
+          <Text>loading...</Text>
+        </Flex>
+      )}
+      {error && (
+        <Flex
+          className={styles.containerGrid}
+          justifyContent={'center'}
+          alignItems={'center'}>
+          <Text>error</Text>
+        </Flex>
+      )}
+      {searched && searched.length > 0 ? (
         <Grid
           templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
           gap={6}

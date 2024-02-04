@@ -22,8 +22,10 @@ export const CollectionItem: React.FC<CollectionItemProps> = ({
       cursor={'pointer'}
       w="300px"
       h="300px"
-      color={'#081D14'}
+      color={'#ffff'}
+      border={'3px solid #ffff'}
       backgroundColor={'rgba(255, 255, 255, .5)'}
+      bgGradient="linear(to-r, #17271f, #374c3c)"
       borderRadius={'5px'}
       _hover={{
         boxShadow: `0 0 10px 5px rgba(8, 29, 20, .9),
@@ -36,9 +38,10 @@ export const CollectionItem: React.FC<CollectionItemProps> = ({
         alignItems={'center'}
         flexDirection={'column'}>
         <Button
+          color={'#ffff'}
           bg={'inherit'}
           onClick={closeButtonActionHandler}
-          fontSize={'40px'}
+          fontSize={'20px'}
           position={'absolute'}
           right={'0px'}
           top={'0px'}>

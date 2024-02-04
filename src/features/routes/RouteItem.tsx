@@ -1,4 +1,4 @@
-import { Flex, GridItem, Text } from '@chakra-ui/react';
+import { Button, Flex, GridItem, Text } from '@chakra-ui/react';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -21,8 +21,10 @@ export const RouteItem: React.FC<RouteItemProps> = ({ id, name, endpoint }) => {
       cursor={'pointer'}
       w="300px"
       h="150px"
-      color={'#081D14'}
+      color={'#ffff'}
+      border={'3px solid #ffff'}
       backgroundColor={'rgba(255, 255, 255, .5)'}
+      bgGradient="linear(to-r, #17271f, #374c3c)"
       borderRadius={'5px'}
       _hover={{
         boxShadow: `0 0 10px 5px rgba(8, 29, 20, .9), /* Внешняя тень */
@@ -38,6 +40,15 @@ export const RouteItem: React.FC<RouteItemProps> = ({ id, name, endpoint }) => {
           {endpoint}
         </Text>
         <Text fontSize={'3rem'}>{name}</Text>
+        <Button
+          color={'#ffff'}
+          bg={'inherit'}
+          fontSize={'20px'}
+          position={'absolute'}
+          right={'0px'}
+          top={'0px'}>
+          X
+        </Button>
       </Flex>
     </GridItem>
   );

@@ -11,13 +11,13 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
-import { CollectionItem } from '../../features/collections/CollectionItem';
 import { NewCollectionForm } from '../../features/collections/NewCollectionForm';
 import { Logo } from '../../UI/Logo';
 import { AddButton } from '../../UI/AddButton';
 import { Search } from '../../UI/Search';
 import { useQuery } from '@tanstack/react-query';
 import { collectionApi } from '../../api/collection';
+import { CollectionControl } from '../../features/collections/ui';
 export const Collections = () => {
   const [searchValue, setSearchValue] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -71,7 +71,7 @@ export const Collections = () => {
             scrollbarWidth: 'none',
           }}>
           {searched.map((item) => (
-            <CollectionItem
+            <CollectionControl
               key={item.id}
               id={item.id}
               name={item.name}

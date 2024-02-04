@@ -15,26 +15,11 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import monImg from '../../assets/mon.png';
 import { useState } from 'react';
-import get from '../../assets/optionsRadio/get.png';
-import post from '../../assets/optionsRadio/post.png';
-import put from '../../assets/optionsRadio/put.png';
-import patch from '../../assets/optionsRadio/patch.png';
-import deleteImg from '../../assets/optionsRadio/delete.png';
-import headImg from '../../assets/optionsRadio/head.png';
-
-interface Route {
-  name: string;
-  endpoint: string;
-  method: string;
-  status: string;
-  body: { key: string; value: string }[];
-  headers: { key: string; value: string }[];
-  timeout: number;
-  description: string;
-}
+import { Route, routeMethod } from '../../entities/routes/model/routes';
 
 export const NewRouteForm = () => {
   const navigate = useNavigate();
+
   const { register, control, handleSubmit } = useForm<Route>();
   const {
     fields: bodyFields,
@@ -68,14 +53,6 @@ export const NewRouteForm = () => {
   const cancelButtonOnClockHandler = () => navigate(-1);
 
   const [selectedValue, setSelectedValue] = useState<string>('GET');
-  const options = [
-    { value: 'GET', label: 'GET', image: get },
-    { value: 'POST', label: 'POST', image: post },
-    { value: 'PUT', label: 'PUT', image: put },
-    { value: 'PATCH', label: 'PATCH', image: patch },
-    { value: 'DELETE', label: 'DELETE', image: deleteImg },
-    { value: 'HEAD', label: 'HEAD', image: headImg },
-  ];
 
   const handleRadioChange = (value: string) => {
     setSelectedValue(value);
@@ -103,7 +80,7 @@ export const NewRouteForm = () => {
         onSubmit={handleSubmit(onSubmit)}>
         <RadioGroup color={'#ffff'}>
           <HStack spacing="24px">
-            {options.map((option) => (
+            {routeMethod.map((option) => (
               <label
                 key={option.value}
                 style={{

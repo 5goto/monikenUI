@@ -1,26 +1,45 @@
+import { Suspense, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Main } from './main/Main';
-import { Collections } from './collections/Collections';
-import { RoutesPage } from './routes/RoutesPage';
-import { NewRoute } from './routes/NewRoute';
-import { RouteDetail } from './routes/RouteDetail';
+
+const CollectionsPageLazy = lazy(() =>
+  import('./collections/Collections').then((module) => ({
+    default: module.Collections,
+  }))
+);
+const RoutesPageLazy = lazy(() =>
+  import('./routes/RoutesPage').then((module) => ({
+    default: module.RoutesPage,
+  }))
+);
+const NewRoutePageLazy = lazy(() =>
+  import('./routes/NewRoute').then((module) => ({ default: module.NewRoute }))
+);
+const RouteDetailPageLazy = lazy(() =>
+  import('./routes/RouteDetail').then((module) => ({
+    default: module.RouteDetail,
+  }))
+);
 
 export const Routing = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Main />} />
-      <Route path="collections" element={<Collections />} />
-      <Route
-        path="collections/:collectionName/routes"
-        element={<RoutesPage />}></Route>
-      <Route
-        path="collections/:collectionName/routes/new"
-        element={<NewRoute />}
-      />
-      <Route
-        path="collections/:collectionName/routes/:id"
-        element={<RouteDetail />}
-      />
-    </Routes>
+    <Suspense fallback={<h1>Suspence page placeholder</h1>}>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="collections" element={<CollectionsPageLazy />} />
+        <Route
+          path="collections/:collectionName/routes"
+          element={<RoutesPageLazy />}
+        />
+        <Route
+          path="collections/:collectionName/routes/new"
+          element={<NewRoutePageLazy />}
+        />
+        <Route
+          path="collections/:collectionName/routes/:id"
+          element={<RouteDetailPageLazy />}
+        />
+      </Routes>
+    </Suspense>
   );
 };

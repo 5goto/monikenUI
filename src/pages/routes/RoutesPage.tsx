@@ -124,3 +124,5 @@ export const RoutesPage = () => {
     </div>
   );
 };
+
+export default RoutesPage as React.FC;

@@ -1,23 +1,25 @@
 import { Button, Flex, GridItem, Text } from '@chakra-ui/react';
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 
 export interface RouteItemProps {
-  id?: string;
+  id: string;
   name: string;
   endpoint: string;
+  closeButtonActionHandler: (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => void;
+  onClickElementHandler: () => void;
 }
 
-export const RouteItem: React.FC<RouteItemProps> = ({ id, name, endpoint }) => {
-  const navigate = useNavigate();
-  const { collectionName } = useParams();
-  const onClickHandler = () => {
-    navigate(`/collections/${collectionName}/routes/${id}`);
-  };
-
+export const RouteItem: React.FC<RouteItemProps> = ({
+  name,
+  endpoint,
+  closeButtonActionHandler,
+  onClickElementHandler,
+}) => {
   return (
     <GridItem
-      onClick={onClickHandler}
+      onClick={onClickElementHandler}
       cursor={'pointer'}
       w="300px"
       h="150px"
@@ -41,6 +43,7 @@ export const RouteItem: React.FC<RouteItemProps> = ({ id, name, endpoint }) => {
         </Text>
         <Text fontSize={'3rem'}>{name}</Text>
         <Button
+          onClick={closeButtonActionHandler}
           color={'#ffff'}
           bg={'inherit'}
           fontSize={'20px'}

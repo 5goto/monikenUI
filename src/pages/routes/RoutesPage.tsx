@@ -4,8 +4,10 @@ import { Search } from '../../UI/Search';
 import styles from './RoutePage.module.css';
 import { AddButton } from '../../UI/AddButton';
 import { useNavigate, useParams } from 'react-router-dom';
-import { RouteItem } from '../../features/routes/RouteItem';
 import { Logo } from '../../UI/Logo';
+import { useQuery } from '@tanstack/react-query';
+import { routesApi } from '../../api/routes';
+import { RouteControl } from '../../features/routes/ui';
 
 export const RoutesPage = () => {
   const [searchValue, setSearchValue] = useState('');
@@ -16,55 +18,12 @@ export const RoutesPage = () => {
     navigate(`/collections/${collectionName}/routes/new`);
   };
 
-  const mock = [
-    {
-      id: '1',
-      name: 'RouteName1',
-      endpoint: '/home',
-    },
-    {
-      id: '2',
-      name: 'RouteName2',
-      endpoint: '/books',
-    },
-    {
-      id: '3',
-      name: 'RouteName3',
-      endpoint: '/cars/4',
-    },
-    {
-      id: '4',
-      name: 'RouteName1',
-      endpoint: '/home',
-    },
-    {
-      id: '5',
-      name: 'RouteName2',
-      endpoint: '/books',
-    },
-    {
-      id: '6',
-      name: 'RouteName3',
-      endpoint: '/cars/4',
-    },
-    {
-      id: '7',
-      name: 'RouteName1',
-      endpoint: '/home',
-    },
-    {
-      id: '8',
-      name: 'RouteName2',
-      endpoint: '/books',
-    },
-    {
-      id: '9',
-      name: 'RouteName3',
-      endpoint: '/cars/4',
-    },
-  ];
+  const { isPending, error, data } = useQuery({
+    queryKey: ['routes'],
+    queryFn: routesApi.getAll,
+  });
 
-  const searched = mock.filter((item) => item.name.includes(searchValue));
+  const searched = data?.filter((item) => item.name.includes(searchValue));
 
   return (
     <div className={styles.routes}>
@@ -77,7 +36,23 @@ export const RoutesPage = () => {
           onChangeHandler={(e) => setSearchValue(e.target.value)}></Search>
       </Flex>
 
-      {searched.length > 0 ? (
+      {isPending && (
+        <Flex
+          className={styles.containerGrid}
+          justifyContent={'center'}
+          alignItems={'center'}>
+          <Text>loading...</Text>
+        </Flex>
+      )}
+      {error && (
+        <Flex
+          className={styles.containerGrid}
+          justifyContent={'center'}
+          alignItems={'center'}>
+          <Text>error</Text>
+        </Flex>
+      )}
+      {searched && searched.length > 0 ? (
         <Grid
           templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
           gap={6}
@@ -93,11 +68,11 @@ export const RoutesPage = () => {
             scrollbarWidth: 'none',
           }}>
           {searched.map((item) => (
-            <RouteItem
+            <RouteControl
               key={item.id}
               id={item.id}
               name={item.name}
-              endpoint={item.endpoint}></RouteItem>
+              endpoint={item.endpoint}></RouteControl>
           ))}
         </Grid>
       ) : (

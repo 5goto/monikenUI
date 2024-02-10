@@ -1,24 +1,25 @@
-import { useNavigate } from 'react-router-dom';
-import { useCollectionDeleteMutation } from '../../entities/collections/model';
+import { useNavigate, useParams } from 'react-router-dom';
+import { RouteItem } from '../../entities/routes/ui';
+import { useDisclosure } from '@chakra-ui/react';
 import React, { RefObject } from 'react';
 import { Alert } from '../../UI/Alert';
-import { useDisclosure } from '@chakra-ui/react';
-import { CollectionItem } from '../../entities/collections/ui';
+import { useRouteDeleteMutation } from '../../entities/routes/model/useDeleteMutation';
 
-export interface CollectionControlProps {
+export interface RouteControlProps {
   id: string;
   name: string;
-  description: string;
+  endpoint: string;
 }
 
-export const CollectionControl: React.FC<CollectionControlProps> = ({
+export const RouteControl: React.FC<RouteControlProps> = ({
   id,
   name,
-  description,
+  endpoint,
 }) => {
   const navigate = useNavigate();
+  const { collectionName } = useParams();
   const onClickHandler = () => {
-    navigate(`/collections/${name}/routes`);
+    navigate(`/collections/${collectionName}/routes/${id}`);
   };
 
   const onDeleteHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -26,7 +27,7 @@ export const CollectionControl: React.FC<CollectionControlProps> = ({
     event.stopPropagation();
   };
 
-  const mutation = useCollectionDeleteMutation();
+  const mutation = useRouteDeleteMutation();
 
   const onConfirmActionHandler = () => {
     mutation.mutate(id);
@@ -38,10 +39,10 @@ export const CollectionControl: React.FC<CollectionControlProps> = ({
 
   return (
     <>
-      <CollectionItem
-        name={name}
-        description={description}
+      <RouteItem
         id={id}
+        name={name}
+        endpoint={endpoint}
         onClickElementHandler={onClickHandler}
         closeButtonActionHandler={onDeleteHandler}
       />
@@ -50,8 +51,8 @@ export const CollectionControl: React.FC<CollectionControlProps> = ({
         isOpen={isOpen}
         onClose={onClose}
         actionHandler={onConfirmActionHandler}
-        question="Delete this collection?"
-        message="This action will delete all routes nested in this collection"
+        question="Delete this route?"
+        message={`${name} will be deleted from ${collectionName}`}
       />
     </>
   );

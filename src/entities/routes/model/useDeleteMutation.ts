@@ -1,15 +1,15 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { collectionApi } from '../../../api/collection';
+import { routesApi } from '../../../api/routes';
 
-export const useCollectionDeleteMutation = () => {
+export const useRouteDeleteMutation = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: collectionApi.delete,
+    mutationFn: routesApi.delete,
     onSuccess: () => {
       console.log('Deleted!');
       queryClient.invalidateQueries({
-        queryKey: ['collections'],
+        queryKey: ['routes'],
       });
     },
     onError: (error) => {

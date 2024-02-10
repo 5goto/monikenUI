@@ -1,4 +1,11 @@
-import { Button, Flex, Input, InputGroup, Textarea } from '@chakra-ui/react';
+import {
+  Button,
+  Flex,
+  Input,
+  InputGroup,
+  Portal,
+  Textarea,
+} from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { CollectionInterface, collectionApi } from '../../api/collection';
@@ -57,16 +64,20 @@ export const NewCollectionForm = () => {
         </Flex>
       </form>
       {isSuccAlert && (
-        <MessageAlert
-          title="Collection created successfully!"
-          status={MessageAlertStatus.SUCCESS}
-        />
+        <Portal>
+          <MessageAlert
+            title="Collection created successfully!"
+            status={MessageAlertStatus.SUCCESS}
+          />
+        </Portal>
       )}
       {isErrAlert && (
-        <MessageAlert
-          title="Failed to create a collection"
-          status={MessageAlertStatus.ERROR}
-        />
+        <Portal>
+          <MessageAlert
+            title="Failed to create a collection"
+            status={MessageAlertStatus.ERROR}
+          />
+        </Portal>
       )}
     </>
   );

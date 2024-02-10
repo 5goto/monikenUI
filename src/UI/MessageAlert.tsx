@@ -38,11 +38,12 @@ export const MessageAlert: React.FC<MessageAlertProps> = ({
 }) => {
   return (
     <Alert
+      width={'300px'}
       status={status}
       color={'initial'}
       position={'absolute'}
       bottom={'50px'}
-      right={'-250px'}>
+      left={'40%'}>
       <AlertIcon />
       <Box>
         <AlertTitle>{title}</AlertTitle>

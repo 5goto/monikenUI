@@ -5,15 +5,19 @@ import patch from '../../../assets/optionsRadio/patch.png';
 import deleteImg from '../../../assets/optionsRadio/delete.png';
 import headImg from '../../../assets/optionsRadio/head.png';
 
-export interface Route {
+export interface ShortCollectionInterface {
+  id: string;
   name: string;
   endpoint: string;
+}
+
+export interface Route extends ShortCollectionInterface {
   method: string;
   status: string;
-  body: { key: string; value: string }[];
-  headers: { key: string; value: string }[];
-  timeout: number;
-  description: string;
+  body?: { [key: string]: string }[];
+  headers?: { [key: string]: string }[];
+  timeout?: number;
+  description?: string;
 }
 
 export const routeMethod = [

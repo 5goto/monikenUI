@@ -16,11 +16,13 @@ import { useNavigate } from 'react-router-dom';
 import monImg from '../../assets/mon.png';
 import { useState } from 'react';
 import { Route, routeMethod } from '../../entities/routes/model/routes';
+import { useMutation } from '@tanstack/react-query';
+import { routesApi } from '../../api/routes';
 
 export const NewRouteForm = () => {
   const navigate = useNavigate();
 
-  const { register, control, handleSubmit } = useForm<Route>();
+  const { register, control, handleSubmit, reset } = useForm<Route>();
   const {
     fields: bodyFields,
     append: appendBody,
@@ -39,15 +41,38 @@ export const NewRouteForm = () => {
     name: 'headers',
   });
 
+  const mutation = useMutation({
+    mutationFn: routesApi.create,
+    onSuccess: () => {
+      console.log('Updated routes!');
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
   const onSubmit = (data: Route) => {
-    const transformedBody = data.body.reduce((acc, currentValue) => {
+    const transformedBody = data.body?.reduce((acc, currentValue) => {
       acc[currentValue.key] = currentValue.value;
       return acc;
     }, {} as Record<string, string>);
 
-    const routeData = { ...data, body: transformedBody, method: selectedValue };
+    const transformedHeaders = data.headers?.reduce((acc, currentValue) => {
+      acc[currentValue.key] = currentValue.value;
+      return acc;
+    }, {} as Record<string, string>);
 
-    console.log(routeData);
+    const routeData = {
+      ...data,
+      body: transformedBody as unknown as Record<string, string>[],
+      headers: transformedHeaders as unknown as Record<string, string>[],
+      method: selectedValue,
+    };
+    mutation.mutate(routeData);
+
+    reset();
+    removeBody();
+    removeHeader();
   };
 
   const cancelButtonOnClockHandler = () => navigate(-1);

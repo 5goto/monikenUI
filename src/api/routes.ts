@@ -1,11 +1,9 @@
 import axios from 'axios';
 import { axiosInstance } from './requestConfig';
-
-export interface ShortCollectionInterface {
-  id: string;
-  name: string;
-  endpoint: string;
-}
+import {
+  Route,
+  ShortCollectionInterface,
+} from '../entities/routes/model/routes';
 
 const api = axiosInstance();
 
@@ -13,6 +11,19 @@ class RoutesAxiosRequest {
   async getAll() {
     try {
       const { data } = await api.get<ShortCollectionInterface[]>(`/routes`);
+      return data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      } else {
+        throw error;
+      }
+    }
+  }
+
+  async create(userData: Route) {
+    try {
+      const { data } = await api.post<Route>(`/routes`, userData);
       return data;
     } catch (error) {
       if (axios.isAxiosError(error)) {

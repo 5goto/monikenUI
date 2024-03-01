@@ -37,7 +37,7 @@ export const Alert: React.FC<AlertProps> = ({
       <AlertDialogOverlay />
 
       <AlertDialogContent
-        backgroundColor={'rgba(8, 29, 20, .5)'}
+        backgroundColor={'rgba(8, 29, 20, 1)'}
         color={'#ffff'}>
         <AlertDialogHeader>{question}</AlertDialogHeader>
         <AlertDialogCloseButton />

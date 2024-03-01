@@ -42,27 +42,37 @@ export const Collections = () => {
       {isPending && (
         <Flex
           className={styles.containerGrid}
+          overflow={'auto'}
+          overflowX={'hidden'}
           justifyContent={'center'}
-          alignItems={'center'}>
+          alignItems={'center'}
+          width={'80%'}
+          minHeight={'7 0%'}
+          margin={'auto'}>
           <Text>loading...</Text>
         </Flex>
       )}
       {error && (
         <Flex
           className={styles.containerGrid}
+          overflow={'auto'}
+          overflowX={'hidden'}
           justifyContent={'center'}
-          alignItems={'center'}>
+          alignItems={'center'}
+          width={'80%'}
+          minHeight={'70%'}
+          margin={'auto'}>
           <Text>error</Text>
         </Flex>
       )}
-      {searched && searched.length > 0 ? (
+      {searched && searched.length > 0 && !isPending && !error &&  (
         <Grid
           templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
           gap={6}
           overflow={'auto'}
           overflowX={'hidden'}
           width={'80%'}
-          minHeight={'80%'}
+          minHeight={'70%'}
           margin={'auto'}
           css={{
             '&::-webkit-scrollbar': {
@@ -79,8 +89,12 @@ export const Collections = () => {
             />
           ))}
         </Grid>
-      ) : (
+      ) } { !isPending && !error && searched && searched.length === 0 && (
         <Flex
+          flex={'0 0 70%'}
+          color={'#ffff'}
+          textTransform={'uppercase'}
+          fontSize={'50px'}
           className={styles.containerGrid}
           justifyContent={'center'}
           alignItems={'center'}>
@@ -97,7 +111,7 @@ export const Collections = () => {
 
       <Drawer placement={'left'} onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
-        <DrawerContent backgroundColor={'rgba(8, 29, 20, .5)'} color={'#ffff'}>
+        <DrawerContent backgroundColor={'rgba(8, 29, 20, 1)'} color={'#ffff'}>
           <DrawerHeader borderBottomWidth="1px">New collection</DrawerHeader>
           <DrawerBody>
             <NewCollectionForm></NewCollectionForm>

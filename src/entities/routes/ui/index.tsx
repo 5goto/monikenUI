@@ -21,8 +21,8 @@ export const RouteItem: React.FC<RouteItemProps> = ({
     <GridItem
       onClick={onClickElementHandler}
       cursor={'pointer'}
-      w="300px"
-      h="150px"
+      w="100%"
+      h="50%"
       color={'#ffff'}
       border={'3px solid #ffff'}
       backgroundColor={'rgba(255, 255, 255, .5)'}

@@ -20,8 +20,8 @@ export const CollectionItem: React.FC<CollectionItemProps> = ({
     <GridItem
       onClick={onClickElementHandler}
       cursor={'pointer'}
-      w="300px"
-      h="300px"
+      w="100%"
+      h="50%"
       color={'#ffff'}
       border={'3px solid #ffff'}
       backgroundColor={'rgba(255, 255, 255, .5)'}

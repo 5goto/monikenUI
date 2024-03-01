@@ -39,27 +39,44 @@ export const RoutesPage = () => {
       {isPending && (
         <Flex
           className={styles.containerGrid}
+          overflow={'auto'}
+          overflowX={'hidden'}
           justifyContent={'center'}
-          alignItems={'center'}>
-          <Text>loading...</Text>
+          alignItems={'center'}
+          width={'80%'}
+          minHeight={'80%'}
+          margin={'auto'}>
+            
+          <Text  
+          color={'#ffff'}
+          textTransform={'uppercase'}
+          fontSize={'50px'}>loading...</Text>
         </Flex>
       )}
       {error && (
         <Flex
           className={styles.containerGrid}
+          overflow={'auto'}
+          overflowX={'hidden'}
           justifyContent={'center'}
-          alignItems={'center'}>
-          <Text>error</Text>
+          alignItems={'center'}
+          width={'80%'}
+          minHeight={'80%'}
+          margin={'auto'}>
+          <Text 
+          color={'#ffff'}
+          textTransform={'uppercase'}
+          fontSize={'50px'}>error fetching data</Text>
         </Flex>
       )}
-      {searched && searched.length > 0 ? (
+      {searched && searched.length > 0 && !isPending && !error && (
         <Grid
           templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
           gap={6}
           overflow={'auto'}
           overflowX={'hidden'}
           width={'80%'}
-          minHeight={'80%'}
+          minHeight={'70%'}
           margin={'auto'}
           css={{
             '&::-webkit-scrollbar': {
@@ -75,9 +92,9 @@ export const RoutesPage = () => {
               endpoint={item.endpoint}></RouteControl>
           ))}
         </Grid>
-      ) : (
+      )} {!isPending && !error && searched && searched.length === 0 && (
         <Flex
-          flex={'0 0 80%'}
+          flex={'0 0 70%'}
           color={'#ffff'}
           textTransform={'uppercase'}
           fontSize={'50px'}

@@ -104,7 +104,7 @@ export const NewRouteForm = () => {
         style={{ color: '#ffff', maxWidth: '70%', width: '100%' }}
         onSubmit={handleSubmit(onSubmit)}>
         <RadioGroup color={'#ffff'}>
-          <HStack spacing="24px">
+          <HStack spacing="24px" display={'flex'} flexWrap={'wrap'}>
             {routeMethod.map((option) => (
               <label
                 key={option.value}

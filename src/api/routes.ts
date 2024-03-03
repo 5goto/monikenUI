@@ -21,6 +21,19 @@ class RoutesAxiosRequest {
     }
   }
 
+  async getById(id: string) {
+    try {
+      const { data } = await api.get<Route>(`/routes/${id}`);
+      return data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      } else {
+        throw error;
+      }
+    }
+  }
+
   async create(userData: Route) {
     try {
       const { data } = await api.post<Route>(`/routes`, userData);

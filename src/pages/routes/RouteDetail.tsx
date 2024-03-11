@@ -1,8 +1,10 @@
-import { Editable, EditableInput, EditablePreview, Flex, Heading, Input, Text } from '@chakra-ui/react';
+import { Button, Editable, EditableInput, EditablePreview, Flex, Heading, Input, Stack, Text } from '@chakra-ui/react';
 import EditableControl from '../../UI/EditableControl';
 import { useQuery } from '@tanstack/react-query';
 import { routesApi } from '../../api/routes';
 import { useParams } from 'react-router-dom';
+import { useFieldArray, useForm } from 'react-hook-form';
+import { Route } from '../../entities/routes/model/routes';
 
 export const RouteDetail = () => {
 
@@ -13,7 +15,24 @@ export const RouteDetail = () => {
     queryFn: () => routesApi.getById(id || ''),
   });
 
-  console.log(data);
+  const { register, control, handleSubmit, reset } = useForm<Route>();
+  const {
+    fields: bodyFields,
+    append: appendBody,
+    remove: removeBody,
+  } = useFieldArray({
+    control,
+    name: 'body',
+  });
+
+  // const {
+  //   fields: headerFields,
+  //   append: appendHeader,
+  //   remove: removeHeader,
+  // } = useFieldArray({
+  //   control,
+  //   name: 'headers',
+  // });
   
 
   return (
@@ -46,7 +65,7 @@ export const RouteDetail = () => {
 
         {error && <Text>Fetch error</Text>}
         { data &&
-        <Flex direction={'column'}>
+        <Flex direction={'column'} maxW={'80%'} w={'100%'}>
           <div>
             <Editable
               width={'100%'}
@@ -136,6 +155,39 @@ export const RouteDetail = () => {
                 <EditableControl />
             </Editable>
           </div>
+          <Stack flex={'0 0 48%'} spacing={3}>
+            {bodyFields.map((field, index) => (
+              <Flex
+                flexDirection={'row-reverse'}
+                key={field.id}
+                justifyContent={'space-between'}>
+                <Input
+                  {...register(`body.${index}.key`)}
+                  defaultValue={field.key}
+                  placeholder="Key"
+                  flex={'0 0 40%'}
+                  pr={'5px'}
+                />
+                <Input
+                  {...register(`body.${index}.value`)}
+                  defaultValue={field.value}
+                  placeholder="Value"
+                  flex={'0 0 40%'}
+                />
+                <Button
+                  flex={'0 0 10%'}
+                  type="button"
+                  onClick={() => removeBody(index)}>
+                  X
+                </Button>
+              </Flex>
+            ))}
+            <Button
+              type="button"
+              onClick={() => appendBody({ key: '', value: '' })}>
+              Add body param
+            </Button>
+          </Stack>
         </Flex>
 
         }

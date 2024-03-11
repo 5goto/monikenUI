@@ -1,9 +1,9 @@
-import axios from 'axios';
-import { axiosInstance } from './requestConfig';
+import axios from "axios";
+import { axiosInstance } from "./requestConfig";
 import {
   Route,
   ShortCollectionInterface,
-} from '../entities/routes/model/routes';
+} from "../entities/routes/model/routes";
 
 const api = axiosInstance();
 
@@ -37,6 +37,19 @@ class RoutesAxiosRequest {
   async create(userData: Route) {
     try {
       const { data } = await api.post<Route>(`/routes`, userData);
+      return data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      } else {
+        throw error;
+      }
+    }
+  }
+
+  async update(userData: Route) {
+    try {
+      const { data } = await api.put<Route>(`/routes/${userData.id}`, userData);
       return data;
     } catch (error) {
       if (axios.isAxiosError(error)) {

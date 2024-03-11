@@ -10,14 +10,14 @@ import {
   Stack,
   Text,
   Textarea,
-} from '@chakra-ui/react';
-import { useFieldArray, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import monImg from '../../assets/mon.png';
-import { useState } from 'react';
-import { Route, routeMethod } from '../../entities/routes/model/routes';
-import { useMutation } from '@tanstack/react-query';
-import { routesApi } from '../../api/routes';
+} from "@chakra-ui/react";
+import { useFieldArray, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import monImg from "../../assets/mon.png";
+import { useState } from "react";
+import { Route, routeMethod } from "../../entities/routes/model/routes";
+import { useMutation } from "@tanstack/react-query";
+import { routesApi } from "../../api/routes";
 
 export const NewRouteForm = () => {
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ export const NewRouteForm = () => {
     remove: removeBody,
   } = useFieldArray({
     control,
-    name: 'body',
+    name: "body",
   });
 
   const {
@@ -38,13 +38,13 @@ export const NewRouteForm = () => {
     remove: removeHeader,
   } = useFieldArray({
     control,
-    name: 'headers',
+    name: "headers",
   });
 
   const mutation = useMutation({
     mutationFn: routesApi.create,
     onSuccess: () => {
-      console.log('Updated routes!');
+      console.log("Updated routes!");
     },
     onError: (error) => {
       console.log(error);
@@ -77,7 +77,7 @@ export const NewRouteForm = () => {
 
   const cancelButtonOnClockHandler = () => navigate(-1);
 
-  const [selectedValue, setSelectedValue] = useState<string>('GET');
+  const [selectedValue, setSelectedValue] = useState<string>("GET");
 
   const handleRadioChange = (value: string) => {
     setSelectedValue(value);
@@ -86,45 +86,49 @@ export const NewRouteForm = () => {
   return (
     <Flex
       background={`url(${monImg})`}
-      backgroundSize={'cover'}
-      backgroundRepeat={'no-repeat'}
-      width={'50%'}
-      mx={'auto'}
-      minH={'100vh'}
-      h={'100%'}
-      pt={'15px'}
-      backgroundColor={'#777777'}
-      flexDirection={'column'}
-      alignItems={'center'}>
-      <Heading fontFamily={'inherit'} fontSize={'50px'} color={'#ffff'}>
+      backgroundSize={"cover"}
+      backgroundRepeat={"no-repeat"}
+      width={"50%"}
+      mx={"auto"}
+      minH={"100vh"}
+      h={"100%"}
+      pt={"15px"}
+      backgroundColor={"#777777"}
+      flexDirection={"column"}
+      alignItems={"center"}
+    >
+      <Heading fontFamily={"inherit"} fontSize={"50px"} color={"#ffff"}>
         New route
       </Heading>
 
       <form
-        style={{ color: '#ffff', maxWidth: '70%', width: '100%' }}
-        onSubmit={handleSubmit(onSubmit)}>
-        <RadioGroup color={'#ffff'}>
-          <HStack spacing="24px" display={'flex'} flexWrap={'wrap'}>
+        style={{ color: "#ffff", maxWidth: "70%", width: "100%" }}
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <RadioGroup color={"#ffff"}>
+          <HStack spacing="24px" display={"flex"} flexWrap={"wrap"}>
             {routeMethod.map((option) => (
               <label
                 key={option.value}
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  flexDirection: 'column',
-                  marginBottom: '10px',
-                }}>
+                  display: "flex",
+                  alignItems: "center",
+                  flexDirection: "column",
+                  marginBottom: "10px",
+                }}
+              >
                 <img
                   src={option.image}
                   alt={option.label}
                   style={{
-                    minWidth: '70px',
-                    height: '70px',
-                    marginRight: '10px',
+                    minWidth: "70px",
+                    height: "70px",
+                    marginRight: "10px",
                   }}
                 />
                 <Text
-                  color={selectedValue === option.label ? '#0aab37' : 'white'}>
+                  color={selectedValue === option.label ? "#0aab37" : "white"}
+                >
                   {option.label}
                 </Text>
                 <input
@@ -134,7 +138,7 @@ export const NewRouteForm = () => {
                   onChange={() => handleRadioChange(option.value)}
                   style={{
                     opacity: 0,
-                    position: 'absolute',
+                    position: "absolute",
                     height: 0,
                     width: 0,
                   }}
@@ -144,15 +148,15 @@ export const NewRouteForm = () => {
           </HStack>
         </RadioGroup>
 
-        <Flex justifyContent={'space-between'} py={'15px'}>
-          <Flex width={'100%'} justifyContent={'space-between'}>
+        <Flex justifyContent={"space-between"} py={"15px"}>
+          <Flex width={"100%"} justifyContent={"space-between"}>
             <FormControl flex="0 0 48%">
-              <FormLabel fontSize={'24px'} htmlFor="name">
+              <FormLabel fontSize={"24px"} htmlFor="name">
                 Name
               </FormLabel>
               <Input
-                flex={'0 0 48%'}
-                {...register('name')}
+                flex={"0 0 48%"}
+                {...register("name")}
                 id="name"
                 placeholder="Name"
               />
@@ -160,14 +164,15 @@ export const NewRouteForm = () => {
 
             <FormControl flex="0 0 48%">
               <FormLabel
-                textAlign={'right'}
-                fontSize={'24px'}
-                htmlFor="endpoint">
+                textAlign={"right"}
+                fontSize={"24px"}
+                htmlFor="endpoint"
+              >
                 Endpoint
               </FormLabel>
               <Input
-                flex={'0 0 48%'}
-                {...register('endpoint')}
+                flex={"0 0 48%"}
+                {...register("endpoint")}
                 id="endpoint"
                 placeholder="Endpoint"
               />
@@ -175,15 +180,15 @@ export const NewRouteForm = () => {
           </Flex>
         </Flex>
 
-        <Flex justifyContent={'space-between'} py={'15px'}>
-          <Flex width={'100%'} justifyContent={'space-between'}>
+        <Flex justifyContent={"space-between"} py={"15px"}>
+          <Flex width={"100%"} justifyContent={"space-between"}>
             <FormControl flex="0 0 48%">
-              <FormLabel fontSize={'24px'} htmlFor="status">
+              <FormLabel fontSize={"24px"} htmlFor="status">
                 Status
               </FormLabel>
               <Input
-                flex={'0 0 48%'}
-                {...register('status')}
+                flex={"0 0 48%"}
+                {...register("status")}
                 id="status"
                 placeholder="200"
               />
@@ -191,15 +196,16 @@ export const NewRouteForm = () => {
 
             <FormControl flex="0 0 48%">
               <FormLabel
-                textAlign={'right'}
-                fontSize={'24px'}
-                htmlFor="timeout">
+                textAlign={"right"}
+                fontSize={"24px"}
+                htmlFor="timeout"
+              >
                 Timeout
               </FormLabel>
               <Input
                 type="number"
-                flex={'0 0 48%'}
-                {...register('timeout')}
+                flex={"0 0 48%"}
+                {...register("timeout")}
                 id="timeout"
                 placeholder="0 ms"
               />
@@ -207,97 +213,102 @@ export const NewRouteForm = () => {
           </Flex>
         </Flex>
 
-        <Flex justifyContent={'space-between'}>
-          <Text py={'5px'} fontSize={'24px'}>
+        <Flex justifyContent={"space-between"}>
+          <Text py={"5px"} fontSize={"24px"}>
             Body
           </Text>
-          <Text py={'5px'} fontSize={'24px'}>
+          <Text py={"5px"} fontSize={"24px"}>
             Headers
           </Text>
         </Flex>
-        <Flex justifyContent={'space-between'}>
-          <Stack flex={'0 0 48%'} spacing={3}>
+        <Flex justifyContent={"space-between"}>
+          <Stack flex={"0 0 48%"} spacing={3}>
             {bodyFields.map((field, index) => (
               <Flex
-                flexDirection={'row-reverse'}
+                flexDirection={"row-reverse"}
                 key={field.id}
-                justifyContent={'space-between'}>
+                justifyContent={"space-between"}
+              >
                 <Input
                   {...register(`body.${index}.key`)}
                   defaultValue={field.key}
                   placeholder="Key"
-                  flex={'0 0 40%'}
-                  pr={'5px'}
+                  flex={"0 0 40%"}
+                  pr={"5px"}
                 />
                 <Input
                   {...register(`body.${index}.value`)}
                   defaultValue={field.value}
                   placeholder="Value"
-                  flex={'0 0 40%'}
+                  flex={"0 0 40%"}
                 />
                 <Button
-                  flex={'0 0 10%'}
+                  flex={"0 0 10%"}
                   type="button"
-                  onClick={() => removeBody(index)}>
+                  onClick={() => removeBody(index)}
+                >
                   X
                 </Button>
               </Flex>
             ))}
             <Button
               type="button"
-              onClick={() => appendBody({ key: '', value: '' })}>
+              onClick={() => appendBody({ key: "", value: "" })}
+            >
               Add body param
             </Button>
           </Stack>
 
-          <Stack flex={'0 0 48%'} spacing={3}>
+          <Stack flex={"0 0 48%"} spacing={3}>
             {headerFields.map((field, index) => (
-              <Flex key={field.id} justifyContent={'space-between'}>
+              <Flex key={field.id} justifyContent={"space-between"}>
                 <Input
                   {...register(`headers.${index}.key`)}
                   defaultValue={field.key}
                   placeholder="Key"
-                  flex={'0 0 40%'}
-                  pr={'5px'}
+                  flex={"0 0 40%"}
+                  pr={"5px"}
                 />
                 <Input
                   {...register(`headers.${index}.value`)}
                   defaultValue={field.value}
                   placeholder="Value"
-                  flex={'0 0 40%'}
+                  flex={"0 0 40%"}
                 />
                 <Button
-                  flex={'0 0 10%'}
+                  flex={"0 0 10%"}
                   type="button"
-                  onClick={() => removeHeader(index)}>
+                  onClick={() => removeHeader(index)}
+                >
                   X
                 </Button>
               </Flex>
             ))}
             <Button
               type="button"
-              onClick={() => appendHeader({ key: '', value: '' })}>
+              onClick={() => appendHeader({ key: "", value: "" })}
+            >
               Add header
             </Button>
           </Stack>
         </Flex>
 
-        <FormControl py={'15px'}>
-          <FormLabel fontSize={'24px'} htmlFor="description">
+        <FormControl py={"15px"}>
+          <FormLabel fontSize={"24px"} htmlFor="description">
             Description
           </FormLabel>
           <Textarea
             id="description"
-            {...register('description')}
+            {...register("description")}
             placeholder="Lorem ipsum"
           />
         </FormControl>
 
-        <Flex justifyContent={'space-between'} mt={'25px'} mb={'100px'}>
-          <Button bg={'#0aab37'} color={'#ffff'} flex={'0 0 48%'} type="submit">
+        <Flex justifyContent={"space-between"} mt={"25px"} mb={"100px"}>
+          <Button bg={"#0aab37"} color={"#ffff"} flex={"0 0 48%"} type="submit">
             Create
           </Button>
-          <Button flex={'0 0 48%'} onClick={cancelButtonOnClockHandler}>
+          <Button flex={"0 0 48%"} onClick={cancelButtonOnClockHandler}>
             Cancel
           </Button>
         </Flex>

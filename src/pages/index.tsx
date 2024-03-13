@@ -1,22 +1,22 @@
-import { Suspense, lazy } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import { Main } from './main/Main';
+import { Suspense, lazy } from "react";
+import { Route, Routes } from "react-router-dom";
+import { Main } from "./main/Main";
 
 const CollectionsPageLazy = lazy(() =>
-  import('./collections/Collections').then((module) => ({
+  import("./collections/Collections").then((module) => ({
     default: module.Collections,
   }))
 );
 const RoutesPageLazy = lazy(() =>
-  import('./routes/RoutesPage').then((module) => ({
+  import("./routes/RoutesPage").then((module) => ({
     default: module.RoutesPage,
   }))
 );
 const NewRoutePageLazy = lazy(() =>
-  import('./routes/NewRoute').then((module) => ({ default: module.NewRoute }))
+  import("./routes/NewRoute").then((module) => ({ default: module.NewRoute }))
 );
 const RouteDetailPageLazy = lazy(() =>
-  import('./routes/RouteDetail').then((module) => ({
+  import("./routes/RouteDetail").then((module) => ({
     default: module.RouteDetail,
   }))
 );
@@ -39,6 +39,7 @@ export const Routing = () => {
           path="collections/:collectionName/routes/:id"
           element={<RouteDetailPageLazy />}
         />
+        <Route path="routes" element={<RoutesPageLazy />} />
       </Routes>
     </Suspense>
   );

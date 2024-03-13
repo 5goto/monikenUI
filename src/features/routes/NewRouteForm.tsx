@@ -6,6 +6,7 @@ import {
   HStack,
   Heading,
   Input,
+  Portal,
   RadioGroup,
   Stack,
   Text,
@@ -18,6 +19,11 @@ import { useState } from "react";
 import { Route, routeMethod } from "../../entities/routes/model/routes";
 import { useMutation } from "@tanstack/react-query";
 import { routesApi } from "../../api/routes";
+import {
+  MessageAlert,
+  MessageAlertStatus,
+  useAlert,
+} from "../../UI/MessageAlert";
 
 export const NewRouteForm = () => {
   const navigate = useNavigate();
@@ -41,13 +47,16 @@ export const NewRouteForm = () => {
     name: "headers",
   });
 
+  const { showAlert: isSuccAlert, show: showSucc } = useAlert();
+  const { showAlert: isErrAlert, show: showErr } = useAlert();
+
   const mutation = useMutation({
     mutationFn: routesApi.create,
     onSuccess: () => {
-      console.log("Updated routes!");
+      showSucc();
     },
-    onError: (error) => {
-      console.log(error);
+    onError: () => {
+      showErr();
     },
   });
 
@@ -317,6 +326,22 @@ export const NewRouteForm = () => {
           </Button>
         </Flex>
       </form>
+      {isSuccAlert && (
+        <Portal>
+          <MessageAlert
+            title="Route created successfully!"
+            status={MessageAlertStatus.SUCCESS}
+          />
+        </Portal>
+      )}
+      {isErrAlert && (
+        <Portal>
+          <MessageAlert
+            title="Failed to create a route"
+            status={MessageAlertStatus.ERROR}
+          />
+        </Portal>
+      )}
     </Flex>
   );
 };

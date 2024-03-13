@@ -6,6 +6,7 @@ import {
   Flex,
   Heading,
   Input,
+  Portal,
   Select,
   Stack,
   Text,
@@ -17,6 +18,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useFieldArray, useForm } from "react-hook-form";
 import { Route, routeMethod } from "../../entities/routes/model/routes";
 import { useEffect } from "react";
+import {
+  MessageAlert,
+  MessageAlertStatus,
+  useAlert,
+} from "../../UI/MessageAlert";
 
 function transformObject(
   obj: Record<string, string>
@@ -27,6 +33,9 @@ function transformObject(
 export const RouteDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const { showAlert: isSuccAlert, show: showSucc } = useAlert();
+  const { showAlert: isErrAlert, show: showErr } = useAlert();
 
   const { register, control, handleSubmit } = useForm<Route>();
   const {
@@ -71,10 +80,10 @@ export const RouteDetail = () => {
   const mutation = useMutation({
     mutationFn: routesApi.update,
     onSuccess: () => {
-      console.log("Route updated!");
+      showSucc();
     },
-    onError: (error) => {
-      console.log(error);
+    onError: () => {
+      showErr();
     },
   });
 
@@ -359,6 +368,22 @@ export const RouteDetail = () => {
           </form>
         )}
       </Flex>
+      {isSuccAlert && (
+        <Portal>
+          <MessageAlert
+            title="Route changed successfully!"
+            status={MessageAlertStatus.SUCCESS}
+          />
+        </Portal>
+      )}
+      {isErrAlert && (
+        <Portal>
+          <MessageAlert
+            title="Error when changing route"
+            status={MessageAlertStatus.ERROR}
+          />
+        </Portal>
+      )}
     </Flex>
   );
 };

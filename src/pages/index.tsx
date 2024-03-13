@@ -1,6 +1,7 @@
 import { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Main } from "./main/Main";
+import { Loader } from "../UI/Loader";
 
 const CollectionsPageLazy = lazy(() =>
   import("./collections/Collections").then((module) => ({
@@ -23,7 +24,7 @@ const RouteDetailPageLazy = lazy(() =>
 
 export const Routing = () => {
   return (
-    <Suspense fallback={<h1>Suspence page placeholder</h1>}>
+    <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="collections" element={<CollectionsPageLazy />} />

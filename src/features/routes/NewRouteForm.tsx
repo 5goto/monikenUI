@@ -53,12 +53,16 @@ export const NewRouteForm = () => {
 
   const onSubmit = (data: Route) => {
     const transformedBody = data.body?.reduce((acc, currentValue) => {
-      acc[currentValue.key] = currentValue.value;
+      if (currentValue.key !== "" && currentValue.value !== "") {
+        acc[currentValue.key] = currentValue.value;
+      }
       return acc;
     }, {} as Record<string, string>);
 
     const transformedHeaders = data.headers?.reduce((acc, currentValue) => {
-      acc[currentValue.key] = currentValue.value;
+      if (currentValue.key !== "" && currentValue.value !== "") {
+        acc[currentValue.key] = currentValue.value;
+      }
       return acc;
     }, {} as Record<string, string>);
 

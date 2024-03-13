@@ -82,12 +82,16 @@ export const RouteDetail = () => {
 
   const onSubmit = (data: Route) => {
     const transformedBody = data.body?.reduce((acc, currentValue) => {
-      acc[currentValue.key] = currentValue.value;
+      if (currentValue.key !== "" && currentValue.value !== "") {
+        acc[currentValue.key] = currentValue.value;
+      }
       return acc;
     }, {} as Record<string, string>);
 
     const transformedHeaders = data.headers?.reduce((acc, currentValue) => {
-      acc[currentValue.key] = currentValue.value;
+      if (currentValue.key !== "" && currentValue.value !== "") {
+        acc[currentValue.key] = currentValue.value;
+      }
       return acc;
     }, {} as Record<string, string>);
 
@@ -111,7 +115,7 @@ export const RouteDetail = () => {
       flexDirection={"column"}
       alignItems={"center"}
       width={"100vw"}
-      height={"100vh"}
+      minH={"100vh"}
       margin={"auto"}
     >
       <Flex
@@ -125,7 +129,12 @@ export const RouteDetail = () => {
         flexDirection={"column"}
         alignItems={"center"}
       >
-        <Heading fontFamily={"inherit"} fontSize={"50px"} color={"#ffff"}>
+        <Heading
+          fontFamily={"inherit"}
+          fontSize={"50px"}
+          color={"#ffff"}
+          mb={"15px"}
+        >
           Route Detail
         </Heading>
 
@@ -333,7 +342,7 @@ export const RouteDetail = () => {
                   </Button>
                 </Stack>
               </Flex>
-              <Flex justifyContent={"space-between"} mt={"25px"} mb={"100px"}>
+              <Flex justifyContent={"space-between"} mt={"35px"} mb={"100px"}>
                 <Button
                   bg={"#0aab37"}
                   color={"#ffff"}
